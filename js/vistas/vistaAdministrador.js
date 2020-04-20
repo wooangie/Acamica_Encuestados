@@ -24,10 +24,6 @@ var VistaAdministrador = function(modelo, controlador, elementos) {
     contexto.reconstruirLista();
     console.log ("Tu pregunta fue editada exitosamente")
   });
-  this.modelo.respuestaVotada.suscribir (function(){
-    contexto.reconstruirLista();
-    console.log ("Se agregó tu voto a la pregunta")
-  })
 };
 
 //AW: Todos los métodos de la vista Administrador

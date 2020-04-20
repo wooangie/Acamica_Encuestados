@@ -7,22 +7,29 @@ var VistaUsuario = function(modelo, controlador, elementos) {
   this.elementos = elementos;
   var contexto = this;
 
+  this.inicializar();
+  
   //suscripcion a eventos del modelo
   this.modelo.preguntaAgregada.suscribir(function() {
-    contexto.reconstruirLista();
+    contexto.inicializar();
+    console.log ('Una pregunta fue agregada')
   });
   this.modelo.preguntaBorrada.suscribir(function() {
-    contexto.reconstruirLista();
+    contexto.inicializar();
+    console.log ('Una pregunta fue borrada');
   });
   this.modelo.preguntasBorradas.suscribir(function() {
-    contexto.reconstruirLista();
+    contexto.inicializar();
+    console.log ('Todas las preguntas fueron borradas')
   });
   this.modelo.preguntaEditada.suscribir(function() {
-    contexto.reconstruirLista();
+    contexto.inicializar();
+    console.log ('Una pregunta fue editada')
   });
-  this.modelo.preguntaVotada.suscribir(function(){
-    contexto.reconstruirLista();
-  });
+  this.modelo.respuestaVotada.suscribir(function(){
+    contexto.inicializar();
+    console.log ('Votaste una respuesta')
+  })
 };
 
 VistaUsuario.prototype = {
@@ -63,6 +70,8 @@ VistaUsuario.prototype = {
     preguntas.forEach(function(clave){
       //completar
       //agregar a listaPreguntas un elemento div con valor "clave.textoPregunta", texto "clave.textoPregunta", id "clave.id"
+      //está bien así???
+      //listaPreguntas.html(clave.textoPregunta).attr('id', clave.id).attr('value', clave.textoPregunta);
       var respuestas = clave.cantidadPorRespuesta;
       contexto.mostrarRespuestas(listaPreguntas,respuestas, clave);
     })
