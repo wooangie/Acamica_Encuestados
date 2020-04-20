@@ -50,7 +50,6 @@ Modelo.prototype = {
     let preguntasParseadas = JSON.parse(localStorage.getItem('preguntas'));
     preguntasParseadas.push(nuevaPregunta);
     localStorage.setItem('preguntas',JSON.stringify(preguntasParseadas));
-    console.log ("Tu pregunta fue agregada exitosamente");
   },
 
   borrarUnaDelStorage: function (id) {
@@ -59,17 +58,17 @@ Modelo.prototype = {
     let preguntasActualizadas = preguntasParseadas.filter ((pregunta)=> pregunta != preguntaABorrar);
     console.log (preguntasActualizadas);
     localStorage.setItem('preguntas', JSON.stringify(preguntasActualizadas));
-    console.log ('Tu pregunta fue borrada exitosamente');
+
   },
 
   borrarTodasDelStorage: function () {
     localStorage.setItem('preguntas', '[]');
   },
 
-  editarDelStorage: function (textoPreguntaNueva, idPreguntaVieja) {
+  editarDelStorage: function (textoNuevaPregunta, idPreguntaVieja) {
     let preguntasParseadas = JSON.parse(localStorage.getItem('preguntas'));
     let preguntaAActualizar = preguntasParseadas.find((pregunta) => pregunta.id==idPreguntaVieja);
-    preguntaAActualizar.textoPregunta = textoPreguntaNueva;
+    preguntaAActualizar.textoPregunta = textoNuevaPregunta;
     localStorage.setItem('preguntas', JSON.stringify(preguntasParseadas));
   },
 
@@ -109,8 +108,8 @@ Modelo.prototype = {
   },
 
 
-  editarPregunta: function (idPreguntaEditada, textoPreguntaEditada) {
-    this.editarDelStorage(textoPreguntaEditada, idPreguntaEditada);
+  editarPregunta: function (idPreguntaEditada, textoNuevaPregunta) {
+    this.editarDelStorage(textoNuevaPregunta, idPreguntaEditada);
     this.guardar();
     this.preguntaEditada.notificar();
   },

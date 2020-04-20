@@ -10,16 +10,24 @@ var VistaAdministrador = function(modelo, controlador, elementos) {
   // suscripción de observadores
   this.modelo.preguntaAgregada.suscribir(function() {
     contexto.reconstruirLista();
+    console.log ("Tu pregunta fue agregada exitosamente");
   });
   this.modelo.preguntaBorrada.suscribir(function() {
     contexto.reconstruirLista();
+    console.log ('Tu pregunta fue borrada exitosamente');
   });
   this.modelo.preguntasBorradas.suscribir(function() {
     contexto.reconstruirLista();
+    console.log ("Se borraron todas las preguntas");
   });
   this.modelo.preguntaEditada.suscribir(function() {
     contexto.reconstruirLista();
+    console.log ("Tu pregunta fue editada exitosamente")
   });
+  this.modelo.respuestaVotada.suscribir (function(){
+    contexto.reconstruirLista();
+    console.log ("Se agregó tu voto a la pregunta")
+  })
 };
 
 //AW: Todos los métodos de la vista Administrador
@@ -97,9 +105,9 @@ VistaAdministrador.prototype = {
     e.botonEditarPregunta.click(function(){
       //cómo traigo la información ID de pregunta y texto de pregunta?
       var idPregunta = $('.list-group-item.active').attr('id');
-      console.log (pregunta.textoPregunta);
-      if (values) {
-        contexto.controlador.editarPregunta (idPregunta, textoPregunta);
+      var textoNuevaPregunta = prompt ("Texto de su nueva pregunta");
+      if (textoNuevaPregunta) {
+        contexto.controlador.editarPregunta (idPregunta, textoNuevaPregunta);
       } else {
         alert ('No se pudo editar la pregunta');
       }
