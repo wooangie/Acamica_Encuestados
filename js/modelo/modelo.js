@@ -73,13 +73,10 @@ Modelo.prototype = {
   },
 
   //Revisar esta función: puedo acceder a los votos de la respuesta, pero no se guarda en el LS.
-  votarStorage: function (idPreguntaVotada, textoRespuestaVotada){
+  votarStorage: function (nombrePregunta, respuestaSeleccionada){
     let preguntasParseadas = JSON.parse(localStorage.getItem('preguntas'));
-    let preguntaAActualizar = preguntasParseadas.find((pregunta) => pregunta.id==idPreguntaVotada);
-    let arrayRespuestas = preguntaAActualizar.cantidadPorRespuesta;
-    let respuestaVotada = arrayRespuestas.find((respuesta) => respuesta.textoRespuesta == textoRespuestaVotada);
-    let votosRespuesta = respuestaVotada.cantidad;
-    votosRespuesta ++;
+    let preguntaAActualizar = preguntasParseadas.find((pregunta) => pregunta.textoPregunta==nombrePregunta);
+    preguntaAActualizar.cantidadPorRespuesta.find((respuesta) => respuesta.textoRespuesta == respuestaSeleccionada).cantidad++
     localStorage.setItem('preguntas', JSON.stringify(preguntasParseadas));
   },
 
@@ -101,7 +98,7 @@ Modelo.prototype = {
     this.preguntaBorrada.notificar();
   },
 
-  borrarTodasLasPreguntas: function () {
+  borrarTodo: function () {
     this.borrarTodasDelStorage();
     this.guardar();
     this.preguntasBorradas.notificar();
@@ -114,10 +111,9 @@ Modelo.prototype = {
     this.preguntaEditada.notificar();
   },
 
-  votarRespuesta: function (idPreguntaVotada, textoRespuestaVotada){
-    this.votarStorage (idPreguntaVotada, textoRespuestaVotada);
+  agregarVoto: function (nombrePregunta, respuestaSeleccionada){
+    this.votarStorage (nombrePregunta, respuestaSeleccionada);
     this.guardar();
     this.respuestaVotada.notificar();
-
   },
 }

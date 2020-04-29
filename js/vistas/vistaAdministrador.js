@@ -99,7 +99,6 @@ VistaAdministrador.prototype = {
 
 
     e.botonEditarPregunta.click(function(){
-      //cómo traigo la información ID de pregunta y texto de pregunta?
       var idPregunta = $('.list-group-item.active').attr('id');
       var textoNuevaPregunta = prompt ("Texto de su nueva pregunta");
       if (textoNuevaPregunta) {
@@ -108,7 +107,12 @@ VistaAdministrador.prototype = {
         alert ('No se pudo editar la pregunta');
       }
 
+    }),
+
+    e.borrarTodo.click(function(){
+      contexto.controlador.borrarTodo();
     })
+
   },
 
   limpiarFormulario: function(){

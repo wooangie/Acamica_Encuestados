@@ -10,26 +10,30 @@ var VistaUsuario = function(modelo, controlador, elementos) {
   this.inicializar();
   
   //suscripcion a eventos del modelo
-  this.modelo.preguntaAgregada.suscribir(function() {
-    contexto.inicializar();
-    console.log ('Una pregunta fue agregada')
-  });
-  this.modelo.preguntaBorrada.suscribir(function() {
-    contexto.inicializar();
-    console.log ('Una pregunta fue borrada');
-  });
-  this.modelo.preguntasBorradas.suscribir(function() {
-    contexto.inicializar();
-    console.log ('Todas las preguntas fueron borradas')
-  });
-  this.modelo.preguntaEditada.suscribir(function() {
-    contexto.inicializar();
-    console.log ('Una pregunta fue editada')
-  });
   this.modelo.respuestaVotada.suscribir(function(){
     contexto.inicializar();
     console.log ('Votaste una respuesta')
-  })
+  });
+
+  this.modelo.preguntaAgregada.suscribir(function() {
+    contexto.inicializar();
+    console.log ("Se sumó una nueva pregunta");
+  });
+
+  this.modelo.preguntaBorrada.suscribir(function() {
+    contexto.reconstruirLista();
+    console.log ('Una pregunta fue borrada');
+  });
+
+  this.modelo.preguntasBorradas.suscribir(function() {
+    contexto.reconstruirLista();
+    console.log ("Se borraron todas las preguntas");
+  });
+
+  this.modelo.preguntaEditada.suscribir(function() {
+    contexto.reconstruirLista();
+    console.log ("Una pregunta fue editada")
+  });
 };
 
 VistaUsuario.prototype = {
@@ -70,7 +74,7 @@ VistaUsuario.prototype = {
     preguntas.forEach(function(clave){
       //completar
       //agregar a listaPreguntas un elemento div con valor "clave.textoPregunta", texto "clave.textoPregunta", id "clave.id"
-      //está bien así???
+      listaPreguntas.append($(`<div id="${clave.id}" value ="${clave.textoPregunta}"> ${clave.textoPregunta} </div>`));
       //listaPreguntas.html(clave.textoPregunta).attr('id', clave.id).attr('value', clave.textoPregunta);
       var respuestas = clave.cantidadPorRespuesta;
       contexto.mostrarRespuestas(listaPreguntas,respuestas, clave);
@@ -99,7 +103,14 @@ VistaUsuario.prototype = {
         var id = $(this).attr('id');
         var respuestaSeleccionada = $('input[name=' + id + ']:checked').val();
         $('input[name=' + id + ']').prop('checked',false);
-        contexto.controlador.agregarVoto(nombrePregunta,respuestaSeleccionada);
+
+        //Pareciera que nombrePregunta sólo toma la información de la primera pregunta.
+        if(respuestaSeleccionada){
+          contexto.controlador.agregarVoto(nombrePregunta,respuestaSeleccionada);
+        }
+        else{
+          alert ("Debe seleccionar una respuesta a votar")
+        }
       });
   },
 

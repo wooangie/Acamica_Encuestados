@@ -22,7 +22,8 @@ Controlador.prototype = {
     this.modelo.borrarTodo();
   },
 
-  votarRespuesta: function (idPreguntaVotada, textoRespuestaVotada) {
-      this.modelo.votarRespuesta (idPreguntaVotada, textoRespuestaVotada);
+  agregarVoto: function (nombrePregunta, respuestaSeleccionada) {
+    console.log('la siguiente información llegó al controlador', nombrePregunta, respuestaSeleccionada)
+      this.modelo.agregarVoto (nombrePregunta, respuestaSeleccionada);
   }
 }
