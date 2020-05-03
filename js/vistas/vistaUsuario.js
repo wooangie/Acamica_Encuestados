@@ -99,19 +99,16 @@ VistaUsuario.prototype = {
   agregarVotos: function(){
     var contexto = this;
     $('#preguntas').find('div').each(function(){
+        debugger;
         var nombrePregunta = $(this).attr('value');
         var id = $(this).attr('id');
         var respuestaSeleccionada = $('input[name=' + id + ']:checked').val();
         $('input[name=' + id + ']').prop('checked',false);
-
         //Pareciera que nombrePregunta sólo toma la información de la primera pregunta.
-        if(respuestaSeleccionada){
+        if(respuestaSeleccionada != undefined){
           contexto.controlador.agregarVoto(nombrePregunta,respuestaSeleccionada);
-        }
-        else{
-          alert ("Debe seleccionar una respuesta a votar")
-        }
-      });
+        };
+    });
   },
 
   dibujarGrafico: function(nombre, respuestas){
