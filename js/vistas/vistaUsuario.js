@@ -11,7 +11,7 @@ var VistaUsuario = function(modelo, controlador, elementos) {
   
   //suscripcion a eventos del modelo
   this.modelo.respuestaVotada.suscribir(function(){
-    contexto.inicializar();
+    contexto.reconstruirGrafico();
     console.log ('Votaste una respuesta')
   });
 
@@ -99,7 +99,6 @@ VistaUsuario.prototype = {
   agregarVotos: function(){
     var contexto = this;
     $('#preguntas').find('div').each(function(){
-        debugger;
         var nombrePregunta = $(this).attr('value');
         var id = $(this).attr('id');
         var respuestaSeleccionada = $('input[name=' + id + ']:checked').val();

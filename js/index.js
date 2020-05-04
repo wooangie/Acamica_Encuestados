@@ -17,5 +17,5 @@ var vistaUsuario = new VistaUsuario(modelo, new Controlador(modelo), {
   'nombreUsuario' : $('#nombreUsuario'),
   'graficosDeTorta' : $('#graficosDeTorta'),
 });
-debugger;
+
 vistaUsuario.inicializar();
